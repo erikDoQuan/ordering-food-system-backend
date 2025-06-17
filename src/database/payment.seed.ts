@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
-import { Payment } from '../entities/payment.entity';
-import { Order } from '../entities/order.entity';
+import { Payment } from '../payment/entities/payment.entity';
+import { Order } from '../order/entities/order.entity';
 
 export async function seedPayments(dataSource: DataSource) {
   const repo = dataSource.getRepository(Payment);

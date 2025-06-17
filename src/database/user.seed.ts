@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { User } from '../entities/user.entity';
+import { User } from '../user/enitities/user.entity';
 
 export async function seedUsers(dataSource: DataSource) {
   const userRepo = dataSource.getRepository(User);

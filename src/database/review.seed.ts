@@ -1,7 +1,7 @@
 import { DataSource } from 'typeorm';
-import { Review } from '../entities/review.entity';
-import { User } from '../entities/user.entity';
-import { Dish } from '../entities/dish.entity';
+import { Review } from '../review/entities/review.entity';
+import { User } from '../user/enitities/user.entity';
+import { Dish } from '../dish/entities/dish.entity';
 
 export async function seedReviews(dataSource: DataSource) {
   const repo = dataSource.getRepository(Review);

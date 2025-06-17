@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
-import { Dish } from '../entities/dish.entity';
-import { Category } from '../entities/category.entity';
+import { Dish } from '../dish/entities/dish.entity';
+import { Category } from '../category/enitities/category.entity';
 
 export async function seedDishes(dataSource: DataSource) {
   const repo = dataSource.getRepository(Dish);

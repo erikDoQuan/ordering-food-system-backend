@@ -3,13 +3,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import { UserModule } from './modules/user.module';
-import { CategoryModule } from './modules/category.module';
-import { DishModule } from './modules/dish.module';
-import { OrderModule } from './modules/order.module';
-import { PaymentModule } from './modules/payment.module';
-import { ReviewModule } from './modules/review.module';
-import { AuthModule } from './modules/auth.module';
+import { UserModule } from './user/user.module';
+import { CategoryModule } from './category/category.module';
+import { DishModule } from './dish/dish.module';
+import { OrderModule } from './order/order.module';
+import { PaymentModule } from './payment/payment.module';
+import { ReviewModule } from './review/review.module';
+import { AuthModule } from './auth/auth.module';
+import { UserAuthModule } from './auth/user-auth.module';
+
+// import { AdminAuthModule } from './auth/admin-auth/admin-auth.module';
 
 @Module({
   imports: [
@@ -30,6 +33,9 @@ import { AuthModule } from './modules/auth.module';
     PaymentModule,
     ReviewModule,
     AuthModule,
+    UserAuthModule,
+
+    // AdminAuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

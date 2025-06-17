@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { User } from '../entities/user.entity';
-import { Category } from '../entities/category.entity';
-import { Dish } from '../entities/dish.entity';
-import { Order } from '../entities/order.entity';
-import { Payment } from '../entities/payment.entity';
-import { Review } from '../entities/review.entity';
+import { User } from '../user/enitities/user.entity';
+import { Category } from '../category/enitities/category.entity';
+import { Dish } from '../dish/entities/dish.entity';
+import { Order } from '../order/entities/order.entity';
+import { Payment } from '../payment/entities/payment.entity';
+import { Review } from '../review/entities/review.entity';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',

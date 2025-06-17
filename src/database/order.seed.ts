@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
-import { Order } from '../entities/order.entity';
-import { User } from '../entities/user.entity';
+import { Order } from '../order/entities/order.entity';
+import { User } from '../user/enitities/user.entity';
 
 export async function seedOrders(dataSource: DataSource) {
   const repo = dataSource.getRepository(Order);
@@ -18,11 +18,11 @@ export async function seedOrders(dataSource: DataSource) {
       user,
       order_items: [
         { name: 'Pizza Hải Sản', quantity: 1, price: 200000 },
-        { name: 'Coca-Cola', quantity: 2, price: 40000 }
+        { name: 'Coca-Cola', quantity: 2, price: 40000 },
       ],
       total_amount: 240000,
-      status: 'pending'
-    }
+      status: 'pending',
+    },
   ];
 
   for (const orderData of orders) {

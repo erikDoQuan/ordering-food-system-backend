@@ -1,6 +1,6 @@
 // src/dish/dish.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { Category } from '../category/category.entity';
+import { Category } from './category.entity';
 
 @Entity('dishes')
 export class Dish {

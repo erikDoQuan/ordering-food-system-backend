@@ -1,7 +1,15 @@
 // src/review/review.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn } from 'typeorm';
-import { User } from '../users/user.entity';
-import { Dish } from '../dish/dish.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+  JoinColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+import { Dish } from './dish.entity';
 
 @Entity('reviews')
 export class Review {

@@ -1,9 +1,15 @@
-// src/app.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
+
+import { UserModule } from './modules/user.module';
+import { CategoryModule } from './modules/category.module';
+import { DishModule } from './modules/dish.module';
+import { OrderModule } from './modules/order.module';
+import { PaymentModule } from './modules/payment.module';
+import { ReviewModule } from './modules/review.module';
+import { AuthModule } from './modules/auth.module';
 
 @Module({
   imports: [
@@ -17,7 +23,13 @@ import { UsersModule } from './users/users.module';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    UsersModule,
+    UserModule,
+    CategoryModule,
+    DishModule,
+    OrderModule,
+    PaymentModule,
+    ReviewModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

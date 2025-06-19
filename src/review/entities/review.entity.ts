@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
   JoinColumn,
 } from 'typeorm';
-import { User } from '../../user/enitities/user.entity';
+import { User } from '../../user/entities/user.entity';
 import { Dish } from '../../dish/entities/dish.entity';
 
 @Entity('reviews')

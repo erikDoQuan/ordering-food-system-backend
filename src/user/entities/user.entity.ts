@@ -1,5 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+} from 'typeorm';
 import { UserRole } from '../constant/user-role.constant';
+import { RefreshToken } from '../../refresh-token/entities/refresh-token.entity';
 
 @Entity()
 export class User {
@@ -23,6 +29,14 @@ export class User {
 
   @Column()
   address_line: string;
+
   @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
   role: UserRole;
+
+  @Column({ default: true })
+  is_active: boolean;
+
+  // thêm quan hệ OneToMany với RefreshToken
+  @OneToMany(() => RefreshToken, (token) => token.user)
+  refreshTokens: RefreshToken[];
 }

@@ -1,48 +1,63 @@
-import { Controller, Post, Body, UnauthorizedException } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { LoginDto } from '../dto/login.dto';
+import { Controller, Get, Patch, Param, Body, Delete } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 import { UserService } from '../../user/user.service';
-import { UserRole } from '../../user/constant/user-role.constant';
-import { User } from '../../user/enitities/user.entity';
+import { User } from '../../user/entities/user.entity';
+import { UpdateUserDto } from '../../user/dto/update-user.dto';
 
-@ApiTags('Admin Auth')
-@Controller('admin/auth')
-export class AdminAuthController {
+@ApiTags('Admin Users')
+@Controller('admin/users')
+export class AdminUserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post('login')
+  @Get()
   @ApiOperation({
-    summary: 'Admin login',
-    description: 'Đăng nhập tài khoản quản trị viên',
+    summary: 'Lấy danh sách user',
+    description: 'Lấy toàn bộ user (kể cả active/inactive)',
   })
-  @ApiResponse({ status: 200, description: 'Đăng nhập thành công', type: User })
-  async login(@Body() loginDto: LoginDto): Promise<User> {
-    const user = await this.userService.findByEmail(loginDto.email);
-
-    if (!user) {
-      throw new UnauthorizedException('Tài khoản không tồn tại');
-    }
-
-    if (user.password !== loginDto.password) {
-      throw new UnauthorizedException('Mật khẩu không đúng');
-    }
-
-    if (user.role !== UserRole.ADMIN) {
-      throw new UnauthorizedException('Bạn không có quyền Admin');
-    }
-
-    // Có thể return thêm token JWT nếu bạn dùng JWT
-    return user;
+  @ApiResponse({ status: 200, description: 'Danh sách user', type: [User] })
+  async findAll(): Promise<User[]> {
+    return this.userService.findAll();
   }
 
-  @Post('logout')
+  @Get(':id')
   @ApiOperation({
-    summary: 'Admin logout',
-    description: 'Đăng xuất tài khoản quản trị viên',
+    summary: 'Lấy thông tin user',
+    description: 'Lấy thông tin chi tiết của 1 user',
   })
-  @ApiResponse({ status: 200, description: 'Đăng xuất thành công' })
-  async logout(): Promise<{ message: string }> {
-    // Nếu  có dùng JWT hoặc session thì có thể clear ở đây
-    return { message: 'Đăng xuất thành công (Admin)' };
+  @ApiParam({ name: 'id', type: String })
+  @ApiResponse({ status: 200, description: 'Thông tin user', type: User })
+  async findOne(@Param('id') id: string): Promise<User | null> {
+    return this.userService.findOne(id);
+  }
+
+  @Patch(':id')
+  @ApiOperation({
+    summary: 'Cập nhật user',
+    description: 'Admin cập nhật thông tin user',
+  })
+  @ApiParam({ name: 'id', type: String })
+  @ApiResponse({
+    status: 200,
+    description: 'User đã được cập nhật',
+    type: User,
+  })
+  async update(
+    @Param('id') id: string,
+    @Body() dto: UpdateUserDto,
+  ): Promise<User | null> {
+    await this.userService.update(id, dto);
+    return this.userService.findOne(id);
+  }
+
+  @Delete(':id')
+  @ApiOperation({
+    summary: 'Xoá mềm user',
+    description: 'Đánh dấu user là không active (xoá mềm)',
+  })
+  @ApiParam({ name: 'id', type: String })
+  @ApiResponse({ status: 200, description: 'User đã bị xoá (mềm)' })
+  async softDelete(@Param('id') id: string): Promise<{ message: string }> {
+    await this.userService.softDelete(id);
+    return { message: 'User đã bị xoá (mềm)' };
   }
 }

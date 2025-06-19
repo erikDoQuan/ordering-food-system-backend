@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
   JoinColumn,
 } from 'typeorm';
-import { User } from '../../user/enitities/user.entity';
+import { User } from '../../user/entities/user.entity';
 
 @Entity('orders')
 export class Order {

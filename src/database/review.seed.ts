@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { Review } from '../review/entities/review.entity';
-import { User } from '../user/enitities/user.entity';
+import { User } from '../user/entities/user.entity';
 import { Dish } from '../dish/entities/dish.entity';
 
 export async function seedReviews(dataSource: DataSource) {

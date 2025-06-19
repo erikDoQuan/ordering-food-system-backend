@@ -4,7 +4,7 @@ import {
   Post,
   Body,
   Param,
-  Put,
+  Patch,
   Delete,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
@@ -47,7 +47,7 @@ export class CategoryController {
     return this.categoryService.findOne(id);
   }
 
-  @Put(':id')
+  @Patch(':id')
   @ApiOperation({ summary: 'Cập nhật danh mục theo ID' })
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({

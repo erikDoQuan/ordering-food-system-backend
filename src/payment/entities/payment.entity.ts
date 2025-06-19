@@ -1,4 +1,3 @@
-// src/payment/payment.entity.ts
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -39,6 +38,9 @@ export class Payment {
 
   @Column({ nullable: true })
   updated_by: number;
+
+  @Column({ nullable: true })
+  user_id: number;
 
   @CreateDateColumn()
   created_at: Date;

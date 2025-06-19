@@ -10,9 +10,6 @@ import { OrderModule } from './order/order.module';
 import { PaymentModule } from './payment/payment.module';
 import { ReviewModule } from './review/review.module';
 import { AuthModule } from './auth/auth.module';
-import { UserAuthModule } from './auth/user-auth.module';
-
-// import { AdminAuthModule } from './auth/admin-auth/admin-auth.module';
 
 @Module({
   imports: [
@@ -32,10 +29,7 @@ import { UserAuthModule } from './auth/user-auth.module';
     OrderModule,
     PaymentModule,
     ReviewModule,
-    AuthModule,
-    UserAuthModule,
-
-    // AdminAuthModule,
+    AuthModule, // Không cần phải import riêng UserAuthModule hay AdminAuthModule nữa
   ],
   controllers: [AppController],
   providers: [AppService],

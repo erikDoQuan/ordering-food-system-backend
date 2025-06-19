@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { Order } from '../order/entities/order.entity';
-import { User } from '../user/enitities/user.entity';
+import { User } from '../user/entities/user.entity';
 
 export async function seedOrders(dataSource: DataSource) {
   const repo = dataSource.getRepository(Order);

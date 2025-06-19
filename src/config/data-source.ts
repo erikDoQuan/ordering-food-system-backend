@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { User } from '../user/enitities/user.entity';
+import { User } from '../user/entities/user.entity';
 import { Category } from '../category/enitities/category.entity';
 import { Dish } from '../dish/entities/dish.entity';
 import { Order } from '../order/entities/order.entity';

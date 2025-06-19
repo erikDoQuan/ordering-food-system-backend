@@ -1,11 +1,11 @@
 import {
-  Injectable,
   BadRequestException,
+  Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
-import { User } from './enitities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRole } from './constant/user-role.constant';
@@ -17,19 +17,19 @@ export class UserService {
     private readonly userRepo: Repository<User>,
   ) {}
 
-  findAll() {
+  findAll(): Promise<User[]> {
     return this.userRepo.find();
   }
 
-  findOne(id: string) {
+  findOne(id: string): Promise<User | null> {
     return this.userRepo.findOneBy({ id });
   }
 
-  findByEmail(email: string) {
+  findByEmail(email: string): Promise<User | null> {
     return this.userRepo.findOneBy({ email });
   }
 
-  async create(dto: CreateUserDto) {
+  async create(dto: CreateUserDto): Promise<User> {
     try {
       const existingUser = await this.findByEmail(dto.email);
       if (existingUser) {
@@ -52,16 +52,27 @@ export class UserService {
     }
   }
 
-  async update(id: string, dto: UpdateUserDto) {
-    await this.userRepo.update(id, dto);
+  async update(id: string, dto: UpdateUserDto): Promise<User | null> {
+    await this.userRepo.update({ id }, dto);
     return this.findOne(id);
   }
 
-  async remove(id: string) {
+  // Xoá mềm (dùng cho admin xoá user)
+  async softDelete(id: string): Promise<void> {
     const user = await this.findOne(id);
     if (!user) {
       throw new BadRequestException('Người dùng không tồn tại');
     }
-    return this.userRepo.delete(id);
+    await this.userRepo.update({ id }, { is_active: false });
+  }
+
+  // Xoá mềm (user tự xoá account của mình)
+  async remove(id: string): Promise<{ message: string }> {
+    const user = await this.findOne(id);
+    if (!user) {
+      throw new BadRequestException('Người dùng không tồn tại');
+    }
+    await this.userRepo.update({ id }, { is_active: false });
+    return { message: 'Tài khoản của bạn đã bị xoá (mềm)' };
   }
 }

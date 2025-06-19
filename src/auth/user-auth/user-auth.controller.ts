@@ -59,7 +59,7 @@ export class UserAuthController {
     if (user.role !== UserRole.USER) {
       throw new UnauthorizedException('Tài khoản không hợp lệ');
     }
-
+    // Tạo Access Token
     const accessToken = this.jwtService.sign({
       sub: user.id,
       email: user.email,

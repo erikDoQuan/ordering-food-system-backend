@@ -10,7 +10,7 @@ import { RefreshTokenModule } from '../../refresh-token/refresh-token.module';
   imports: [
     TypeOrmModule.forFeature([User]),
     JwtModule.register({
-      secret: 'SECRET_KEY', // Bạn nên đưa vào .env
+      secret: 'SECRET_KEY', // đưa vào .env 
       signOptions: { expiresIn: '1h' },
     }),
     RefreshTokenModule,
